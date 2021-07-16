@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Tela de Cadastro</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+ <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<style type="text/css">
+table.striped>tbody>tr:nth-child(odd) {
+	background-color: #c0c0c0;
+}
+</style>
+
+</head>
+<body>
+	<div class="row">
+		<div class="col s12">
+			<h3>SpringBoot / Yhymeleaf + MAterial Design Lite</h3>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s4">
+			<a class="btn waves-effect waves-light" href="/cadastropessoa">
+				Retonar a tela de cadastros. </a>
+
+		</div>
+
+
+	</div>
+
+
+
+
+	<div th:each="p: ${pessoaobj}">
+		<div class="row">
+			<div class=" col s8">
+				<p>
+					ID: <span th:text="${p.id}"></span>
+				<p>
+					Nome: <span th:text="${p.nome}"></span>
+				<p>
+					Sobrenome: <span th:text="${p.sobrenome}"></span>
+				<p>
+					Idade: <span th:text="${p.idade}"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class=" col s8">
+			<h5>Telefones</h5>
+		</div>
+	</div>
+	<br />
+
+	<div th:each="m : ${msg}">
+		<span th:text="${m}"></span>
+	</div>
+
+	<br />
+
+	<div class="row">
+		<form
+			th:action="@{/addfonepessoa/{pessoaid}(pessoaid=${pessoaobj.id})}"
+			method="post" class="col s8" onsubmit="return validarCampos()? true : false">
+			<div class="input-field col s4">
+				<label class="active" for="numero">Número</label> <input id="numero"
+					name="numero" class="validate">
+			</div>
+			<div class="input-field col s4">
+				<label class="active" for="tipo">Tipo</label> <input id="tipo"
+					name="tipo" class="validate">
+			</div>
+			<div class="row">
+				<input type="submit" id="adcicionar" name="adcicionar"
+					class="waves-effect waves ligth btn">
+			</div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="col s5">
+			<table class="striped">
+				<thead>
+					<tr>
+
+						<th>Número</th>
+						<th>Tipo</th>
+					</tr>
+				</thead>
+				<tr th:each="fone : ${telefones}">
+					<td th:text="${fone.numero}"></td>
+					<td th:text="${fone.tipo}"></td>
+					<td><a
+						th:href="@{/excluirtelefone/{idtelefone}(idtelefone=${fone.id})}">Excluir</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+ <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script type="text/javascript">
+	
+function validarCampos(){
+numero = document.getElementById('numero').value;
+tipo = document.getElementById('tipo').value;
+
+	if(numero == ''){
+	alert("Número deve ser informado");
+	return false;
+	}
+	
+	if(tipo == ''){
+	alert("Tipo deve ser informado");
+	return false;
+	}
+	
+ return true;
+ }
+
+</script>
+</body>
+</html>
