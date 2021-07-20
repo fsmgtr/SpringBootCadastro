@@ -19,6 +19,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 public class Usuario implements UserDetails, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@SuppressWarnings("unused")
 	private static final long seialVersionUID = 1L;
 	

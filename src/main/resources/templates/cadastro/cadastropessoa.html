@@ -17,16 +17,75 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 	<style type="text/css">
+		html {
+			height: 100%;
+		}
+
+
+
+
 		table.striped>tbody>tr:nth-child(odd) {
 			background-color: #c0c0c0;
 		}
+
+		.navbar a {
+			margin-left: 7px;
+		}
+
+		.container {
+			width: 100%;
+		}
+
+
+		body {
+			min-height: 100%;
+		}
+
+		body h3 {
+			text-align: center;
+		}
+
+		table {
+			width: 100%;
+
+		}
+
+		table td,
+		table th {
+			border: 1px solid grey;
+
+		}
+
+
+		table th {
+			background: #EEE;
+		}
+
+		.page-footer {
+			text-align: end;
+			margin-bottom: 0;
+		}
+		
+		.page-footer p {
+			 
+			margin-right: 10px;
+			margin-bottom: 5px;
+		}
+		
 	</style>
 
 </head>
+<nav class="navbar navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">
+			SpringBoot Cadastro
+		</a>
+	</div>
+</nav>
 
 <body>
 
-	<h3>SpringBoot / Yhymeleaf + MAterial Design Lite</h3>
+	<h3> Sistema utilizando SpringBoot / Thymeleaf / Material Design Lite</h3>
 
 	<br />
 	<fieldset class="col s10">
@@ -37,8 +96,8 @@
 		<br />
 
 		<div class="row">
-			<form action="salvarpessoa" id="formpessoa" method="post" th:object="${pessoaobj}"
-			 class="col s12" enctype="multipart/form-data">
+			<form action="salvarpessoa" id="formpessoa" method="post" th:object="${pessoaobj}" class="col s12"
+				enctype="multipart/form-data">
 
 				<div class="row">
 					<div class="col s12">
@@ -92,7 +151,7 @@
 								</div>
 								<div class="input-field col s3">
 									<label class="active" for="file">Currículo</label>
-									<input type="file" id="file" name="file" class="active">
+									<input type="file" id="file" name="file" class="file-field input-field">
 								</div>
 							</div>
 						</div>
@@ -160,16 +219,13 @@
 	<div class="row">
 		<fieldset class="col s12">
 			<legend> Campos de pesquisa</legend>
-
-
 			<div class="col s12">
 				<form action="pesquisarpessoa" id="pesquisarpessoa" method="post">
 					<div class="row">
 						<div class="input-fiel col s3">
 							<label for="pesnome" class="active">Pesquisa por nome:</label> <input name="nomepesquisa"
-								id="nomepesquisa" class="validate" type="text">
+								id="nomepesquisa" class="validate" type="text" th:value="${nomepesquisa}">
 						</div>
-
 						<div class="input-field col s3">
 							<label for="pesqsexo" class="active"> Filtrar por sexo</label> <select
 								class="browser-default" name="pesqsexo" id="pesqsexo">
@@ -198,35 +254,61 @@
 		</fieldset>
 	</div>
 	<!---------------------------------------------- table -------------------------------------->
-	<br />
-	<br />
-	<div class="row">
-		<div class="col s10">
-			<table class="striped">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nome</th>
-						<th>Sobrenome</th>
-						<th>Idade</th>
-						<th>Editar</th>
-						<th>Excluir</th>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<table class="striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nome</th>
+							<th>Sobrenome</th>
+							<th>Editar</th>
+							<th>Excluir</th>
+							<th>Currículo</th>
+						</tr>
+					</thead>
+					<tr th:each="pessoa : ${pessoas.content}">
+						<td th:text="${pessoa.id}"></td>
+						<td><a th:href="@{/telefones/{idpessoa}(idpessoa=${pessoa.id})}"> <span
+									th:text="${pessoa.nome}"></span></a></td>
+						<td th:text="${pessoa.sobrenome}"></td>
+						<td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
+						<td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
+						<td><a th:if="${pessoa.curriculo != null }"
+								th:href="@{/downloadCv/{idpessoa}(idpessoa=${pessoa.id})}">Download</a></td>
+						<!--
+						01 > outra forma de bloquear se não tiver cv para baixar
+					<td><a th:if="${pessoa.curriculo != null }" th:href="@{/downloadCv/{idpessoa}(idpessoa=${pessoa.id})}" >Download</a></td>
+					<td><a th:if="${pessoa.curriculo != null }"> Não já cv para down </td>
+					- - - --  - - - - - - --- - - - - ---------- - - - - - - - - -
+					
+					-->
 					</tr>
-				</thead>
-				<tr th:each="pessoa : ${pessoas}">
-					<td th:text="${pessoa.id}"></td>
-					<td><a th:href="@{/telefones/{idpessoa}(idpessoa=${pessoa.id})}"> <span
-								th:text="${pessoa.nome}"></span></a></td>
-					<td th:text="${pessoa.sobrenome}"></td>
-					<td th:text="${pessoa.idade}"></td>
-					<td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
-					<td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
-				</tr>
-
-			</table>
+				</table>
+				<div class="row" style="margin-top: 30px;">
+					<center>
+						<span th:if="${pessoas.hasPrevious()}">
+							<a
+								th:href="@{/pessoaspag(page=${pessoas.number-1}, size=${pessoas.size}, nomepesquisa=${nomepesquisa})}">Anterior</a>
+						</span>
+						<th:block th:each="i: ${#numbers.sequence(0, pessoas.totalPages - 1)}">
+						<a th:href="@{/pessoaspag(page=${i}, size=${pessoas.size})}">[[ ${i} + 1 ]] </a>
+						</th:block>
+						<span th:if="${pessoas.hasNext()}">
+					<a th:href="@{/pessoaspag(page=${pessoas.number+1}, size=${pessoas.size}, nomepesquisa=${nomepesquisa})}">Próximo</a>
+					</span>
+					</center>
+				</div>
+			</div>
 		</div>
 	</div>
 	</div>
+	<!-- Footer -->
+<footer class="page-footer">
+  <p>Desenvolvido por Filipe</p>
+</footer>
+<!-- Footer -->
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>

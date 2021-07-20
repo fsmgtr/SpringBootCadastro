@@ -1,60 +1,49 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<!--Import materialize.css-->
+	<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<style type="text/css">
+		form {
+			margin-top: 70px;
+		}
+	</style>
 
-
-<title>Insert title here</title>
+	<title>Login</title>
 </head>
+
 <body>
 
 	<div class="row">
 		<form th:action="@{/login}" method="post" class="col s12">
 			<div class="col s12 m8 l4 offset-m2 offset-l4">
 				<div class="card">
-
 					<div class="card-action teal lighten-1 white-text">
 						<h3>
-							<center>BEM VINDO</center>
+							<center>Acesso ao Sistema</center>
 						</h3>
 					</div>
-
 					<div class="card-content">
 						<div class="form-field">
-							<label for="username">Login:</label> <input type="text"
-								id="username" name="username">
+							<label for="username">Login:</label> <input type="text" id="username" name="username">
 						</div>
 						<br>
-
 						<div class="form-field">
-							<label for="password">Senha:</label> <input type="password"
-								id="password" name="password">
+							<label for="password">Senha:</label> <input type="password" id="password" name="password">
 						</div>
 						<br>
-
-						<div class="form-field">
-							<input type="checkbox" id="remem"> <label for="remem">Rememeber
-								me</label>
-
-						</div>
 						<br>
-
 						<div class="form-field">
-							<button class="btn-large waves-effect waves-dark" type="submit"
-								style="width: 100%;" name="logar">Login</button>
+							<button class="btn-large waves-effect waves-dark" type="submit" style="width: 100%;"
+								name="logar">Login</button>
 						</div>
 						<br>
 					</div>
-
 				</div>
 			</div>
 		</form>
@@ -62,12 +51,9 @@
 
 
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 
@@ -78,4 +64,5 @@
 
 
 </body>
+
 </html>

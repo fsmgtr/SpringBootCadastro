@@ -25,7 +25,7 @@ public class ReportUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// Retorna nosso pdf em byte para download no navegador
-	public byte[] gerarRelatorio(List listDados, String relatorio, ServletContext servletContext) throws Exception {
+	public byte[] gerarRelatorio(@SuppressWarnings("rawtypes") List listDados, String relatorio, ServletContext servletContext) throws Exception {
 
 		// cria a lista de dedados para o relatório com a lista de objetos para imprimir
 		JRBeanCollectionDataSource jrbcds = new JRBeanCollectionDataSource(listDados);
@@ -34,6 +34,7 @@ public class ReportUtil implements Serializable {
 		String caminhoJasper = servletContext.getRealPath("relatorios") + File.separator + relatorio + ".jasper";
 
 		/* Carrega o arquivo Jasper passando os dados */
+		@SuppressWarnings("unchecked")
 		JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoJasper, new HashedMap(), jrbcds);
 
 		//Exporta para byte para download... format PDF

@@ -5,6 +5,7 @@ public enum Office {
 	JUNIOR("Júnior"), PLENO("Pleno"), SENIOR("Sênior");
 
 	private String nome;
+	@SuppressWarnings("unused")
 	private String valor;
 
 	private Office(String nome) {
